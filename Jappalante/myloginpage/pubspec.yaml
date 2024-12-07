@@ -18,6 +18,8 @@ dependencies:
   hexcolorname: ^0.0.9 # Votre dépendance HexColor
   get: ^4.6.6 # Ajout de la dépendance Get
   flutter_svg: ^2.0.15
+  firebase_core: ^3.8.1
+  firebase_auth: ^5.3.4
 
 dev_dependencies:
   flutter_test:

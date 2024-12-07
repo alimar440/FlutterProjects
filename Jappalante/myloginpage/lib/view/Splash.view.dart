@@ -4,6 +4,8 @@ import 'package:myloginpage/view/login.view.dart';
 import 'package:get/get.dart';
 import 'dart:async';
 
+import 'package:myloginpage/view/redirection.view.dart';
+
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
 
@@ -17,7 +19,7 @@ class _SplashViewState extends State<SplashView> {
     super.initState();
     // Utilisation de Timer dans initS  tate pour éviter les appels répétitifs
     Timer(const Duration(seconds: 4), () {
-      Get.to(LoginView());
+      Get.to(RedirectionView());
     });
   }
 

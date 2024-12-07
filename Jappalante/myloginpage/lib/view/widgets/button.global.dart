@@ -8,7 +8,7 @@ class ButtonGlobal extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        print('logn');
+       // print('logn');
       },
       child: Container(
         alignment: Alignment.center,

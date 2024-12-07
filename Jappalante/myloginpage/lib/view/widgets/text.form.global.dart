@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TextFormGlobal extends StatelessWidget {
-  TextFormGlobal(
+  const TextFormGlobal(
       {super.key,
       required this.controller,
       required this.text,
