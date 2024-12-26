@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jaappalante/service/firebase/auth.dart';
 import 'package:jaappalante/view/homepage.view.dart';
 import 'package:jaappalante/view/login.view.dart';
+import 'package:jaappalante/view/widgets/home.view.dart';
 //import 'package:jaappalante/view/login.view.dart';
 
 
@@ -21,7 +22,7 @@ class _RedirectionViewState extends State<RedirectionView> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasData) {
-            return MyHomePage();
+            return Home();
           } else {
             return LoginView();
             

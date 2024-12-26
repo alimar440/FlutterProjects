@@ -5,7 +5,6 @@ import 'package:jaappalante/firebase_options.dart';
 import 'package:get/get.dart';
 import 'package:jaappalante/view/Splash.view.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -19,8 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashView() ,
-        	   
+      home: SplashView(),
     );
   }
 }
