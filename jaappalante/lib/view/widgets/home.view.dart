@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       bottomNavigationBar: Container(
+      bottomNavigationBar: Container(
         color: Colors.black,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20),
@@ -65,7 +65,6 @@ class _HomeState extends State<Home> {
               ]),
         ),
       ),
-      
       backgroundColor: Colors.grey[300],
       body: SafeArea(
         child: SingleChildScrollView(
@@ -151,20 +150,45 @@ class _HomeState extends State<Home> {
                   },
                 ),
               ),
-
+              // Container(
+              //   child: ,
+              // )
               // Conditional Buttons
-              if (myCategories[0][2])
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      ElevatedButton(
-                          onPressed: () {}, child: const Text("Bouton 1")),
-                      ElevatedButton(
-                          onPressed: () {}, child: const Text("Bouton 2")),
-                      ElevatedButton(
-                          onPressed: () {}, child: const Text("Bouton 3")),
-                    ],
+              if (myCategories[0][2] ||
+                  myCategories[1][2] ||
+                  myCategories[2][2] ||
+                  myCategories[3][2])
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(60),
+                  child: Container(
+                    height: 700,
+                    width: double.infinity,
+                    color: Colors.white,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: horizontalPadding,
+                          vertical: verticalPadding),
+                      child: ListView(
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: const Text("Bouton 1"),
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: Size(double.infinity,
+                                  60), // Largeur de 100% et hauteur de 60
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: const Text("Bouton 1"),
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: Size(double.infinity,
+                                  60), // Largeur de 100% et hauteur de 60
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
             ],
