@@ -2,10 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:jaappalante/service/firebase/auth.dart';
 import 'package:jaappalante/utils/global.colors.dart';
+import 'package:jaappalante/view/MainNavigationPage.dart';
+import 'package:jaappalante/view/login.view.dart';
+import 'package:jaappalante/view/profile.view.dart';
 import 'package:jaappalante/view/widgets/social.login.dart';
-
-
-
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -38,8 +38,8 @@ class _RegisterViewState extends State<RegisterView> {
                 child: Column(
                   children: [
                     SizedBox(
-                      child: Image.asset("assets/images/logo.jpg"),
                       width: 60,
+                      child: Image.asset("assets/images/logo.jpg"),
                     ),
                     SizedBox(
                       height: 30,
@@ -52,11 +52,9 @@ class _RegisterViewState extends State<RegisterView> {
                         color: Colors.grey.withOpacity(0.5),
                         shadows: [
                           Shadow(
-                            offset: Offset(2.0,
-                                2.0), // Décalage horizontal et vertical de l'ombre
-                            blurRadius: 0.3, // Rayon de flou
-                            color: const Color.fromARGB(
-                                255, 201, 211, 219), // Couleur de l'ombre
+                            offset: Offset(2.0, 2.0),
+                            blurRadius: 0.3,
+                            color: const Color.fromARGB(255, 201, 211, 219),
                           ),
                         ],
                       ),
@@ -80,10 +78,11 @@ class _RegisterViewState extends State<RegisterView> {
                           labelText: "Prenom",
                         ),
                         validator: (value) {
-                          if (value == null || value.isEmpty)
+                          if (value == null || value.isEmpty) {
                             return 'votre Prenom est obligatoire !';
-                          else
+                          } else {
                             return null;
+                          }
                         }),
                     SizedBox(
                       height: 13,
@@ -104,10 +103,11 @@ class _RegisterViewState extends State<RegisterView> {
                           labelText: "nom",
                         ),
                         validator: (value) {
-                          if (value == null || value.isEmpty)
+                          if (value == null || value.isEmpty) {
                             return 'votre nom est obligatoire !';
-                          else
+                          } else {
                             return null;
+                          }
                         }),
                     SizedBox(
                       height: 13,
@@ -117,20 +117,21 @@ class _RegisterViewState extends State<RegisterView> {
                         decoration: InputDecoration(
                             prefixIcon: Icon(
                               Icons.email_sharp,
-                              color:GlobalColors.mainColor,
+                              color: GlobalColors.mainColor,
                             ),
                             hintText: "Votre Email",
                             labelText: "Email",
                             enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
+                                borderSide: BorderSide(
                                     color:
                                         const Color.fromARGB(255, 57, 142, 211),
                                     width: 2))),
                         validator: (value) {
-                          if (value == null || value.isEmpty)
+                          if (value == null || value.isEmpty) {
                             return "l'email est obligatoire !";
-                          else
+                          } else {
                             return null;
+                          }
                         }),
                     SizedBox(
                       height: 13,
@@ -141,8 +142,7 @@ class _RegisterViewState extends State<RegisterView> {
                         decoration: InputDecoration(
                           enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
-                                  color: GlobalColors.mainColor,
-                                  width: 2)),
+                                  color: GlobalColors.mainColor, width: 2)),
                           prefixIcon: Icon(
                             Icons.lock,
                             color: GlobalColors.mainColor,
@@ -162,10 +162,11 @@ class _RegisterViewState extends State<RegisterView> {
                           labelText: "Mot de passe",
                         ),
                         validator: (value) {
-                          if (value == null || value.isEmpty)
+                          if (value == null || value.isEmpty) {
                             return 'mot de passe obligatoire !';
-                          else
+                          } else {
                             return null;
+                          }
                         }),
                     SizedBox(
                       height: 13,
@@ -176,8 +177,7 @@ class _RegisterViewState extends State<RegisterView> {
                       decoration: InputDecoration(
                         enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
-                                color: GlobalColors.mainColor,
-                                width: 2)),
+                                color: GlobalColors.mainColor, width: 2)),
                         prefixIcon: Icon(
                           Icons.lock,
                           color: GlobalColors.mainColor,
@@ -197,17 +197,18 @@ class _RegisterViewState extends State<RegisterView> {
                         labelText: "Confirmer Mot de passe",
                       ),
                       validator: (value) {
-                        if (value == null || value.isEmpty)
+                        if (value == null || value.isEmpty) {
                           return 'champ obligatoire !';
-                        else if (value != _passwordController.text)
+                        } else if (value != _passwordController.text) {
                           return 'les mots de passe ne sont pas identique !';
-                        else
+                        } else {
                           return null;
+                        }
                       },
                     ),
                     SizedBox(
                       height: 13,
-                      ),
+                    ),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
@@ -228,25 +229,46 @@ class _RegisterViewState extends State<RegisterView> {
                               );
 
                               if (user != null) {
-                                print(
-                                    'Utilisateur inscrit avec succès : ${user.displayName}');
+                                await Auth()
+                                    .loginwithEmailAndPassword(email, password);
+
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text(
+                                          'Inscription réussie ! Bienvenue, ${user.displayName}')),
+                                );
+
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          MainNavigationPage(),
+                                    ));
                               } else {
-                                print('Erreur : Échec de l\'inscription');
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text(
+                                          'Échec de l\'inscription, veuillez réessayer.')),
+                                );
                               }
                             } catch (e) {
-                              print('Erreur lors de l\'inscription : $e');
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content: Text(
+                                        'Erreur lors de l\'inscription : $e')),
+                              );
                             }
                           }
                         },
-                        child: Text(
-                          'S\'inscrire',
-                          style: TextStyle(
-                              fontSize: 18, fontStyle: FontStyle.normal),
-                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: GlobalColors.mainColor,
                           foregroundColor: Colors.white,
                           elevation: 5,
+                        ),
+                        child: Text(
+                          'S\'inscrire',
+                          style: TextStyle(
+                              fontSize: 18, fontStyle: FontStyle.normal),
                         ),
                       ),
                     ),
@@ -273,35 +295,31 @@ class _RegisterViewState extends State<RegisterView> {
                 )),
           ),
           const SizedBox(
-                  height: 20,
-                ),
-                SocialLogin(),
-                const SizedBox(
-                  height: 30,
-                ),
+            height: 20,
+          ),
+          SocialLogin(),
+          const SizedBox(
+            height: 30,
+          ),
           TextButton(
-                  onPressed: () {
-                    
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => RegisterView()),
-                    );
-                  },
-                  child: Row(
-                    children: 
-                    [
-                      
-                      Text("Déjà un compte?", style: TextStyle(color: Colors.black)),
-                      Text(
-                        " Se connecter",
-                      style: TextStyle(color: GlobalColors.mainColor),
-                    ),
-                    ],
-                  ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginView()),
+              );
+            },
+            child: Row(
+              children: [
+                Text("Déjà un compte?", style: TextStyle(color: Colors.black)),
+                Text(
+                  " Se connecter",
+                  style: TextStyle(color: GlobalColors.mainColor),
                 ),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
 }
-

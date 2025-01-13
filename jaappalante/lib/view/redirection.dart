@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jaappalante/service/firebase/auth.dart';
-import 'package:jaappalante/view/homepage.view.dart';
+import 'package:jaappalante/view/mainNavigationPage.dart';
 import 'package:jaappalante/view/login.view.dart';
-import 'package:jaappalante/view/widgets/home.view.dart';
-//import 'package:jaappalante/view/login.view.dart';
-
 
 class RedirectionView extends StatefulWidget {
   const RedirectionView({super.key});
@@ -22,10 +19,9 @@ class _RedirectionViewState extends State<RedirectionView> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasData) {
-            return Home();
+            return MainNavigationPage();
           } else {
             return LoginView();
-            
           }
         });
   }
